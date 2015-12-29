@@ -216,15 +216,19 @@ void loop(){
   switch(random_mode){
    case 0: 
     all_leds_random();
+    sensibilidad=5000;
     break;
    case 1:
     array_on_leds_random(100);
+    sensibilidad=5000;
     break;
    case 2:
-    random_leds(); 
+    random_leds();
+    sensibilidad=5000; 
     break;
    case 3:
      random_individual_led();
+     sensibilidad=1000;
      break;
   }
   
