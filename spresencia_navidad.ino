@@ -165,7 +165,7 @@ void setup(){
   pixels.begin(); // This initializes the NeoPixel library.
   tiempo_inicial=(millis());
   randomSeed(analogRead(0));
-  random_mode=random(0,3);
+  random_mode=random(0,4);
 }
 
 void loop(){
@@ -177,7 +177,7 @@ void loop(){
   
   for(int i=0;i<NUMPIXELS;i++){
     // pixels.Color takes RGB values, from 0,0,0 up to 255,255,255
-    pixels.setPixelColor(i, pixels.Color(255,0,0)); // Moderately bright green color.
+    pixels.setPixelColor(i, pixels.Color(256,0,0)); // Moderately bright green color.
     pixels.show(); // This sends the updated pixel color to the hardware.
   }
   
@@ -187,9 +187,9 @@ void loop(){
     //pixels.setPixelColor(random(0,30), pixels.Color(random(0,255),random(0,255),random(0,255))); //LED aleatorio a color aleatorio
     //pixels.show(); // This sends the updated pixel color to the hardware.
     
-    r=random(0,255);
-    g=random(0,255);
-    b=random(0,255);
+    r=random(0,256);
+    g=random(0,256);
+    b=random(0,256);
   
   for(int i=0;i<NUMPIXELS;i++){
     pixels.setPixelColor(i,pixels.Color(r,g,b));  
@@ -207,25 +207,12 @@ void loop(){
   }
   
   //Esperamos un tiempo
-  random_mode=random(0,2);
+  random_mode=random(0,4);
   delay(60000);
   tiempo_inicial=millis();
   }
-  /*else{
-    for(int i=0;i<NUMPIXELS;i++){
-    // pixels.Color takes RGB values, from 0,0,0 up to 255,255,255
-    pixels.setPixelColor(i, pixels.Color(0,0,0)); // Moderately bright green color.
-    pixels.show(); // This sends the updated pixel color to the hardware.
-    
-  }
-  }*/
-  //noTone(BUZZER);
-  
     
   //Hacemos brillar los LEDs de forma aleatoria sin melodia
-  //all_leds_random();
-  //array_on_leds_random(100);
-  
   switch(random_mode){
    case 0: 
     all_leds_random();
@@ -236,6 +223,9 @@ void loop(){
    case 2:
     random_leds(); 
     break;
+   case 3:
+     random_individual_led();
+     break;
   }
   
   delay(sensibilidad);
@@ -261,9 +251,9 @@ void playNota (int nota) {
 }
 
 void all_leds_random(){
-  r=random(0,255);
-  g=random(0,255);
-  b=random(0,255);
+  r=random(0,256);
+  g=random(0,256);
+  b=random(0,256);
   
   for(int i=0;i<NUMPIXELS;i++){
   pixels.setPixelColor(i,pixels.Color(r,g,b));  
@@ -272,9 +262,9 @@ void all_leds_random(){
 }
 
 void array_on_leds_random(int time){
-  r=random(0,255);
-  g=random(0,255);
-  b=random(0,255);
+  r=random(0,256);
+  g=random(0,256);
+  b=random(0,256);
   
   for(int i=0;i<NUMPIXELS;i++){
   pixels.setPixelColor(i,pixels.Color(r,g,b));  
@@ -284,16 +274,25 @@ void array_on_leds_random(int time){
 }
 
 void random_leds(){
-  r=random(0,255);
-  g=random(0,255);
-  b=random(0,255);
+  r=random(0,256);
+  g=random(0,256);
+  b=random(0,256);
   
-  int led_begin=random(0,30);
+  int led_begin=random(0,NUMPIXELS+1);
   
-  for(int i=led_begin;i<random(led_begin,NUMPIXELS);i++){
+  for(int i=led_begin;i<random(led_begin,NUMPIXELS+1);i++){
   pixels.setPixelColor(i,pixels.Color(r,g,b));  
   pixels.show(); // This sends the updated pixel color to the hardware.
   //delay(time);  
   }
 }
 
+void random_individual_led(){
+  r=random(0,256);
+  g=random(0,256);
+  b=random(0,256);
+  
+  pixels.setPixelColor(random(0,NUMPIXELS+1),pixels.Color(r,g,b));  
+  pixels.show(); // This sends the updated pixel color to the hardware.
+  
+}
